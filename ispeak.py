@@ -52,72 +52,6 @@ from textblob import TextBlob
 warnings.filterwarnings("ignore")
 
 # ===================================
-# STREAMLIT PAGE CONFIG
-# ===================================
-st.set_page_config(
-    page_title="I-Speak Automated Speech Assessment",
-    layout="wide"
-)
-
-st.title("I-Speak Automated Speech Assessment")
-st.markdown("---")
-
-# ===================================
-# FEATURE MAPPING CONSTANTS
-# ===================================
-
-# CEFR level mapping
-CEFR_MAPPING = {
-    0: "A1",
-    1: "A2", 
-    2: "B1",
-    3: "B2",
-    4: "C1",
-    5: "C2"
-}
-
-# Define the exact order of 39 numerical features for the model
-NUMERICAL_FEATURES_ORDER = [
-    "Durasi (s)", "MFCC (%)", "Semantic Coherence (%)", "Pause Freq",
-    "Token Count", "Type Count", "TTR", "Pitch Range (Hz)",
-    "Articulation Rate", "MLR", "Mean Pitch", "Stdev Pitch",
-    "Mean Energy", "Stdev Energy", "Num Prominences", 
-    "Prominence Dist Mean", "Prominence Dist Std", "WPM", "WPS",
-    "Total Words", "Linking Count", "Discourse Count", "Filled Pauses",
-    "Topic Similarity (%)", "Grammar Errors", "Idioms Found",
-    "CEFR A1", "CEFR A2", "CEFR B1", "CEFR B2", "CEFR C1", "CEFR C2",
-    "CEFR UNKNOWN", "Bigram Count", "Trigram Count", "Fourgram Count",
-    "Synonym Variations", "Avg Tree Depth", "Max Tree Depth"
-]
-
-# Mapping features to subconstructs
-SUBCONSTRUCTS = {
-    "Fluency": ["Total Words", "WPM", "WPS", "Filled Pauses", "MLR", "Pause Freq", "Durasi (s)"],
-    "Pronunciation": ["Articulation Rate", "Pitch Range (Hz)", "MFCC (%)"],
-    "Prosody": ["Mean Pitch", "Stdev Pitch", "Mean Energy", "Stdev Energy",
-                "Num Prominences", "Prominence Dist Mean", "Prominence Dist Std"],
-    "Coherence and Cohesion": ["Semantic Coherence (%)", "Discourse Count", "Linking Count"],
-    "Topic Relevance": ["Topic Similarity (%)"],
-    "Complexity": ["Idioms Found", "Bigram Count", "Trigram Count", "Fourgram Count",
-                   "Synonym Variations", "CEFR A1", "CEFR A2", "CEFR B1", "CEFR B2",
-                   "CEFR C1", "CEFR C2", "CEFR UNKNOWN", "Avg Tree Depth", "Max Tree Depth",
-                   "Token Count", "Type Count", "TTR"],
-    "Accuracy": ["Grammar Errors"]
-}
-
-# Model files mapping
-MODEL_FILES = {
-    "Fluency": "Fluency_rf_classification.h5",
-    "Pronunciation": "Pronunciation_rf_classification.h5",
-    "Prosody": "Prosody_rf_classification.h5",
-    "Coherence and Cohesion": "Coherence_and_Cohesion_rf_classification.h5",
-    "Topic Relevance": "Topic_Relevance_rf_classification.h5",
-    "Complexity": "Complexity_rf_classification.h5",
-    "Accuracy": "Accuracy_rf_classification.h5",
-    "CEFR": "CEFR_rf_classification.h5"
-}
-
-# ===================================
 # INITIALIZATION & CACHING
 # ===================================
 @st.cache_resource
@@ -223,6 +157,72 @@ def load_reference_data():
     except Exception as e:
         st.error(f"Error loading reference data: {e}")
         return pd.DataFrame(), []
+
+# ===================================
+# STREAMLIT PAGE CONFIG
+# ===================================
+st.set_page_config(
+    page_title="I-Speak Automated Speech Assessment",
+    layout="wide"
+)
+
+st.title("I-Speak Automated Speech Assessment")
+st.markdown("---")
+
+# ===================================
+# FEATURE MAPPING CONSTANTS
+# ===================================
+
+# CEFR level mapping
+CEFR_MAPPING = {
+    0: "A1",
+    1: "A2", 
+    2: "B1",
+    3: "B2",
+    4: "C1",
+    5: "C2"
+}
+
+# Define the exact order of 39 numerical features for the model
+NUMERICAL_FEATURES_ORDER = [
+    "Durasi (s)", "MFCC (%)", "Semantic Coherence (%)", "Pause Freq",
+    "Token Count", "Type Count", "TTR", "Pitch Range (Hz)",
+    "Articulation Rate", "MLR", "Mean Pitch", "Stdev Pitch",
+    "Mean Energy", "Stdev Energy", "Num Prominences", 
+    "Prominence Dist Mean", "Prominence Dist Std", "WPM", "WPS",
+    "Total Words", "Linking Count", "Discourse Count", "Filled Pauses",
+    "Topic Similarity (%)", "Grammar Errors", "Idioms Found",
+    "CEFR A1", "CEFR A2", "CEFR B1", "CEFR B2", "CEFR C1", "CEFR C2",
+    "CEFR UNKNOWN", "Bigram Count", "Trigram Count", "Fourgram Count",
+    "Synonym Variations", "Avg Tree Depth", "Max Tree Depth"
+]
+
+# Mapping features to subconstructs
+SUBCONSTRUCTS = {
+    "Fluency": ["Total Words", "WPM", "WPS", "Filled Pauses", "MLR", "Pause Freq", "Durasi (s)"],
+    "Pronunciation": ["Articulation Rate", "Pitch Range (Hz)", "MFCC (%)"],
+    "Prosody": ["Mean Pitch", "Stdev Pitch", "Mean Energy", "Stdev Energy",
+                "Num Prominences", "Prominence Dist Mean", "Prominence Dist Std"],
+    "Coherence and Cohesion": ["Semantic Coherence (%)", "Discourse Count", "Linking Count"],
+    "Topic Relevance": ["Topic Similarity (%)"],
+    "Complexity": ["Idioms Found", "Bigram Count", "Trigram Count", "Fourgram Count",
+                   "Synonym Variations", "CEFR A1", "CEFR A2", "CEFR B1", "CEFR B2",
+                   "CEFR C1", "CEFR C2", "CEFR UNKNOWN", "Avg Tree Depth", "Max Tree Depth",
+                   "Token Count", "Type Count", "TTR"],
+    "Accuracy": ["Grammar Errors"]
+}
+
+# Model files mapping
+MODEL_FILES = {
+    "Fluency": "Fluency_rf_classification.h5",
+    "Pronunciation": "Pronunciation_rf_classification.h5",
+    "Prosody": "Prosody_rf_classification.h5",
+    "Coherence and Cohesion": "Coherence_and_Cohesion_rf_classification.h5",
+    "Topic Relevance": "Topic_Relevance_rf_classification.h5",
+    "Complexity": "Complexity_rf_classification.h5",
+    "Accuracy": "Accuracy_rf_classification.h5",
+    "CEFR": "CEFR_rf_classification.h5"
+}
 
 # ===================================
 # LEXICAL BUNDLES DEFINITIONS
