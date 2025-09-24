@@ -125,16 +125,13 @@ def get_avg_and_max_tree_depth(text):
 def process_audio_file(audio_path, whisper_model):
     """Main audio processing function (MODIFIED: Uses soundfile instead of FFmpeg)"""
     try:
-        # Transcription
+        # Transcription - Updated parameters to avoid deprecated ones
         result = whisper_model.transcribe(
             audio_path,
             language="en",
             condition_on_previous_text=False,
             temperature=0.0,
-            logprob_threshold=-1.0,
-            no_speech_threshold=0.0,
-            compression_ratio_threshold=10.0,
-            fp16=False
+            compression_ratio_threshold=10.0
         )
         original_text = result["text"]
         
@@ -147,10 +144,14 @@ def process_audio_file(audio_path, whisper_model):
             tts_path = tts_file.name
             
         try:
-            gTTS(original_text).save(tts_path)
+            # Create TTS audio
+            tts = gTTS(text=original_text, lang='en', slow=False)
+            tts.save(tts_path)
+            
             # Load TTS audio using librosa
             y2, _ = librosa.load(tts_path, sr=16000)
-            # Save using soundfile instead of librosa's deprecated sf.write
+            
+            # Resave using soundfile to ensure proper format
             sf.write(tts_path, y2, 16000)
             
             # MFCC comparison
@@ -165,7 +166,8 @@ def process_audio_file(audio_path, whisper_model):
             
             # Clean up TTS file
             os.unlink(tts_path)
-        except:
+        except Exception as tts_error:
+            st.warning(f"TTS comparison failed: {tts_error}")
             cosine_sim = 0.0
         
         return result, original_text, dur, cosine_sim
