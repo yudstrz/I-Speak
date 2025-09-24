@@ -110,6 +110,23 @@ MODEL_FILES = {
 }
 
 # ===================================
+# HELPER FUNCTIONS (AFTER STREAMLIT IMPORT)
+# ===================================
+
+def load_model_from_h5(filename, key_name=None):
+    """Load model from H5 file"""
+    try:
+        with h5py.File(filename, "r") as f:
+            if key_name is None:
+                key_name = list(f.keys())[0]
+            model_bytes = bytes(f[key_name][()])
+            model = pickle.loads(model_bytes)
+        return model
+    except Exception as e:
+        st.error(f"Error loading model {filename}: {e}")  # Now st is available
+        return None
+
+# ===================================
 # CACHED FUNCTIONS (AFTER STREAMLIT IMPORT)
 # ===================================
 @st.cache_resource
@@ -234,6 +251,7 @@ def load_prediction_models():
             model_status.append(f"⚠️ {name} (file not found)")
     
     return loaded_models, model_status
+
 
 # ===================================
 # LEXICAL BUNDLES DEFINITIONS
@@ -396,3 +414,4 @@ def calculate_ttr(text):
     token_count = len(tokens)
     type_count = len(set(tokens))
     ttr = type_count / token_count if token_count > 0 else 0
+
