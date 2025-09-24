@@ -1,0 +1,47 @@
+name: Setup Streamlit Project on Windows
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Java JDK 17
+      shell: powershell
+      run: |
+        winget install --id Microsoft.OpenJDK.17 -e --silent
+        java -version
+
+    - name: Install FFmpeg
+      shell: powershell
+      run: |
+        winget install --id Gyan.FFmpeg -e --silent
+        ffmpeg -version
+
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+
+    - name: Install Python dependencies
+      run: pip install --no-warn-script-location -r requirements.txt
+
+    - name: Download SpaCy model
+      run: python -m spacy download en_core_web_sm
+
+    - name: Verify installations
+      run: |
+        python -c "import spacy, torch, whisper, language_tool_python; print('All libraries OK')"
+
+    - name: Optional - Run Streamlit
+      run: streamlit hello
