@@ -8,5 +8,5 @@ nltk
 scikit-learn
 streamlit
 sentence-transformers
-soundfile
 textblob
+soundfile
