@@ -1,0 +1,21 @@
+==============================
+I-Speak Quick Setup
+==============================
+
+# 1. Install Java JDK 17
+#winget install Microsoft.OpenJDK.17
+java -version
+
+# 2. Install FFmpeg
+winget install Gyan.FFmpeg
+ffmpeg -version
+
+# 3. Install Python Libraries
+pip install h5py openai-whisper gtts librosa transformers torch nltk scikit-learn \
+spacy language-tool-python praat-parselmouth benepar streamlit sentence-transformers --no-warn-script-location
+
+# 4. Download spaCy English model
+python -m spacy download en_core_web_sm
+
+# 5. Run Streamlit App
+python -m streamlit run ispeak.py
