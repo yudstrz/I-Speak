@@ -1,14 +1,40 @@
-h5py
-openai-whisper
-gtts
-librosa
-transformers
-torch
-nltk
-scikit-learn
-spacy
-language-tool-python
-praat-parselmouth
-benepar
-streamlit
-sentence-transformers
+# === Pastikan Python 3.8+ terpasang ===
+python --version
+
+# === Update pip ===
+python -m pip install --upgrade pip
+
+# === Install Java JDK 17 ===
+winget install Microsoft.OpenJDK.17
+java -version
+
+# === Install FFmpeg ===
+winget install Gyan.FFmpeg
+ffmpeg -version
+
+# === Buat virtual environment (opsional) ===
+python -m venv venv
+.\venv\Scripts\activate
+
+# === Install library Python utama ===
+pip install --upgrade pip
+pip install h5py
+pip install openai-whisper
+pip install gtts
+pip install librosa
+pip install transformers
+pip install torch
+pip install nltk
+pip install scikit-learn
+pip install spacy
+pip install language-tool-python
+pip install praat-parselmouth
+pip install benepar
+pip install sentence-transformers
+pip install streamlit
+
+# === Download model spaCy (wajib) ===
+python -m spacy download en_core_web_sm
+
+# === Jalankan Streamlit App ===
+python -m streamlit run ispeak.py
