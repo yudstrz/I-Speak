@@ -21,9 +21,6 @@
 import os, sys, re, tempfile, warnings, pickle, h5py
 import numpy as np
 import pandas as pd
-import subprocess
-# Install spaCy model
-subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
 
 # Streamlit
 import streamlit as st
@@ -1435,3 +1432,4 @@ streamlit run ispeak_improved.py
 if __name__ == "__main__":
 
     main()
+
