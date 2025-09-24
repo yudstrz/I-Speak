@@ -1,53 +1,12 @@
-# I-Speak Automated Speech Assessment - Updated Requirements
-# Modified version with lighter dependencies (no Java, FFmpeg, or spaCy required)
-
-# Core Dependencies
-streamlit>=1.28.0
-numpy>=1.24.0
-pandas>=2.0.0
-
-# Audio Processing (MODIFIED: Added soundfile, removed parselmouth)
-openai-whisper>=20231117
-librosa>=0.10.0
-soundfile>=0.12.1  # REPLACES FFmpeg functionality
-gtts>=2.3.0
-scipy>=1.10.0
-
-# Machine Learning
-scikit-learn>=1.3.0
-torch>=2.0.0
-transformers>=4.30.0
-
-# NLP Libraries (MODIFIED: Enhanced NLTK, removed spaCy)
-nltk>=3.8.1  # REPLACES spaCy + en_core_web_sm model
-textblob>=0.17.1  # REPLACES LanguageTool (no Java required)
-sentence-transformers>=2.2.0
-
-# Data Processing
-h5py>=3.8.0
-pickle5>=0.0.11; python_version < "3.8"
-
-# Utilities
-tempfile-utilities>=1.0.0; python_version < "3.8"
-warnings-utils>=1.0.0; python_version < "3.8"
-regex>=2023.6.3
-
-# REMOVED DEPENDENCIES (no longer needed):
-# praat-parselmouth  # REPLACED by librosa-only approach
-# language-tool-python  # REPLACED by TextBlob
-# spacy>=3.4.0  # REPLACED by NLTK
-# en-core-web-sm  # REPLACED by NLTK models
-# benepar>=0.2.0  # REPLACED by NLTK POS approximation
-
-# REMOVED SYSTEM DEPENDENCIES:
-# Java JDK 17 (was needed for LanguageTool)
-# FFmpeg (was needed for audio processing)
-
-# Optional: For better performance
-numba>=0.57.0  # Speeds up librosa operations
-joblib>=1.3.0  # Parallel processing for sklearn
-
-# Development Dependencies (optional)
-pytest>=7.0.0
-black>=23.0.0
-flake8>=6.0.0
+h5py
+openai-whisper
+gtts
+librosa
+transformers
+torch
+nltk
+scikit-learn
+streamlit
+sentence-transformers
+soundfile
+textblob
