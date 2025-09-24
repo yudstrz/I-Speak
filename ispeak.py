@@ -129,7 +129,7 @@ def load_model_from_h5(filename, key_name=None):
 # ===================================
 # CACHED FUNCTIONS (AFTER STREAMLIT IMPORT)
 # ===================================
-@st.cache_resource
+@st.cache(allow_output_mutation=True)_resource
 def download_nltk_resources():
     """Download required NLTK resources"""
     try:
@@ -154,7 +154,7 @@ def download_nltk_resources():
         st.warning(f"Some NLTK resources might not be available: {e}")
         return False
 
-@st.cache_resource
+@st.cache(allow_output_mutation=True)_resource
 def load_models_and_resources():
     """Load all required models and resources (MODIFIED)"""
     try:
@@ -203,7 +203,7 @@ def load_models_and_resources():
         st.error(f"Error loading models: {e}")
         return None, None, None
 
-@st.cache_data
+@st.cache(allow_output_mutation=True)_data
 def load_reference_data():
     """Load reference datasets"""
     try:
@@ -232,7 +232,7 @@ def load_reference_data():
         st.error(f"Error loading reference data: {e}")
         return pd.DataFrame(), []
 
-@st.cache_resource
+@st.cache(allow_output_mutation=True)_resource
 def load_prediction_models():
     """Load all prediction models"""
     loaded_models = {}
@@ -414,4 +414,5 @@ def calculate_ttr(text):
     token_count = len(tokens)
     type_count = len(set(tokens))
     ttr = type_count / token_count if token_count > 0 else 0
+
 
