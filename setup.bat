@@ -1,16 +1,32 @@
 @echo off
-echo === Install Java JDK 17 (wajib untuk LanguageTool) ===
-winget install Microsoft.OpenJDK.17
+echo ===========================
+echo Installing Java JDK 17
+echo ===========================
+winget install Microsoft.OpenJDK.17 -h
 java -version
+echo.
 
-echo === Install FFmpeg (opsional) ===
-winget install Gyan.FFmpeg
+echo ===========================
+echo Installing FFmpeg
+echo ===========================
+winget install Gyan.FFmpeg -h
 ffmpeg -version
+echo.
 
-echo === Buat virtual environment ===
-python -m venv venv
-call venv\Scripts\activate
-
-echo === Install library Python ===
+echo ===========================
+echo Installing Python Libraries
+echo ===========================
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements.txt --no-warn-script-location
+echo.
+
+echo ===========================
+echo Downloading SpaCy model
+echo ===========================
+python -m spacy download en_core_web_sm
+echo.
+
+echo ===========================
+echo Setup Completed!
+echo ===========================
+pause
