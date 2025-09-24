@@ -1,11 +1,14 @@
-streamlit
 h5py
+openai-whisper
 gtts
 librosa
 transformers
+torch
 nltk
 scikit-learn
 spacy
 language-tool-python
+praat-parselmouth
 benepar
+streamlit
 sentence-transformers
